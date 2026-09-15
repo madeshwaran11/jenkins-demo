@@ -2,28 +2,33 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
-                echo 'Code checked out from GitHub'
+                echo 'Checking out code from GitHub...'
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building the project...'
+                echo 'Building website...'
+                sh 'ls -la'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                echo 'Test passed!'
+                echo 'Testing website...'
+                sh 'test -f index.html'
+                echo 'Website test passed!'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deployment completed!'
+                echo 'Deploying website to Apache...'
+                sh 'sudo cp index.html /var/www/html/index.html'
+                echo 'Website deployed successfully!'
             }
         }
     }
